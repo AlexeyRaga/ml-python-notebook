@@ -44,3 +44,13 @@ RUN conda install --quiet --yes \
 # HDF5 package to save / load weights
 RUN pip install --upgrade --no-deps git+git://github.com/Theano/Theano.git \
  && pip install --upgrade --no-deps git+git://github.com/fchollet/keras.git 
+
+# Activate ipywidgets extension in the environment that runs the notebook server
+RUN jupyter nbextension enable --py widgetsnbextension --sys-prefix
+
+# Configure ipython kernel to use matplotlib inline backend by default
+RUN mkdir -p $HOME/.ipython/profile_default/startup
+COPY mplimporthook.py $HOME/.ipython/profile_default/startup/
+
+VOLUME /notebook
+WORKDIR /notebook
