@@ -2,11 +2,16 @@ FROM jupyter/minimal-notebook
 
 MAINTAINER Alexey Raga <araga@arbor.net>
 
+USER root
+
 # libav-tools for matplotlib anim
 RUN apt-get update && \
     apt-get install -y --no-install-recommends libav-tools && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
+USER $NB_USER
+
 
 # Install Python 3 packages
 # Remove pyqt and qt pulled in for matplotlib since we're only ever going to
