@@ -52,5 +52,7 @@ RUN jupyter nbextension enable --py widgetsnbextension --sys-prefix
 RUN mkdir -p $HOME/.ipython/profile_default/startup
 COPY mplimporthook.py $HOME/.ipython/profile_default/startup/
 
+ENV KERAS_BACKEND theano
+
 VOLUME /notebook
 WORKDIR /notebook
